@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import CategoryModal from "./CategoryModal";
-import InsertModal from "./insertModal";
+import InsertModal from "./InsertModal";
 import PlatformModal from "./PlatformModal";
 
 const Dashboard = () => {

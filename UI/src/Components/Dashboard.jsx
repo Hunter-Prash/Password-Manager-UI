@@ -174,6 +174,10 @@ const Dashboard = () => {
                   {item.Password}
                 </p>
 
+                <p className="relative z-10 mt-4 font-mono text-cyan-300">
+                  {item.Notes}
+                </p>
+
                 <div className="relative z-10 mt-5 flex items-center justify-between text-xs text-gray-500">
                   <span>{item.Category}</span>
                   <span className="tracking-widest text-cyan-400">SECURED</span>

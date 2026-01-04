@@ -36,12 +36,13 @@ const UpdatePage = () => {
 
       console.log(payload);
 
-      /*const response = await axios.patch(
+      const response = await axios.patch(
         "https://p7g0npdh71.execute-api.ap-south-1.amazonaws.com/api/v1/update",
         payload
       );
 
-      console.log("Update success:", response.data);*/
+      console.log("Update success:", response.data);
+      alert('Update Success')
     } catch (err) {
       console.error(err);
     }

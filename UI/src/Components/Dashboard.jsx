@@ -128,10 +128,59 @@ const Dashboard = () => {
 
       {/* RESULTS */}
       {results.length > 0 && (
-        <motion.div className="mt-14">
+        <motion.div
+          className="mt-14"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12 } },
+          }}
+        >
           <h2 className="mb-6 font-mono text-lg tracking-widest text-cyan-400">
             ACCESS GRANTED
           </h2>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {results.map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ scale: 1.04 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                className="relative overflow-hidden rounded-xl
+                           border border-cyan-400/60 bg-zinc-950 p-5
+                           shadow-[0_0_25px_#00ffe1]"
+              >
+                <div className="pointer-events-none absolute inset-0 
+                                bg-gradient-to-br from-cyan-400/10 to-fuchsia-500/10" />
+
+                <p className="relative z-10 text-xs tracking-widest text-fuchsia-400 uppercase">
+                  {item.Platform}
+                </p>
+
+                <p className="relative z-10 mt-3 break-all text-sm text-gray-300">
+                  {item.Email}
+                </p>
+
+                <p className="relative z-10 mt-4 font-mono text-cyan-300">
+                  {item.Password}
+                </p>
+
+                <p className="relative z-10 mt-4 font-mono text-cyan-300">
+                  {item.Notes}
+                </p>
+
+                <div className="relative z-10 mt-5 flex items-center justify-between text-xs text-gray-500">
+                  <span>{item.Category}</span>
+                  <span className="tracking-widest text-cyan-400">SECURED</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       )}
 

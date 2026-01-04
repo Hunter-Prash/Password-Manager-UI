@@ -15,7 +15,6 @@ const Dashboard = () => {
   });
 
   const [selectedOption, setSelectedOption] = useState(""); 
-
   const [results, setResults] = useState([]);
 
   const handleLogout = () => {
@@ -23,7 +22,6 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  // native radio → value passed directly
   const handleSelect = (val) => {
     setSelectedOption(val); 
     setModal((prev) => ({
@@ -39,6 +37,10 @@ const Dashboard = () => {
       platformModal: false,
       insertModal: false,
     });
+  };
+
+  const handleUpdate = () => {
+    navigate("/update");
   };
 
   return (
@@ -76,14 +78,15 @@ const Dashboard = () => {
         animate={{ opacity: 1 }}
       >
         Fetch details based on platform or category
-        <br></br>
-       -- Make sure category is in ALL CAPS--
-        <br></br>
-        <br></br>
-        Available Categories- CAREER, BANKING, AWS, ENTERTAINMENT, PERSONAL_SYSTEM, COLLEGE, SHOPPING_AND_LIFESTYLE
+        <br />
+        -- Make sure category is in ALL CAPS --
+        <br />
+        <br />
+        Available Categories- CAREER, BANKING, AWS, ENTERTAINMENT,
+        PERSONAL_SYSTEM, COLLEGE, SHOPPING_AND_LIFESTYLE
       </motion.p>
 
-      {/* CONTROLS — NATIVE RADIO OPTIONS */}
+      {/* CONTROLS */}
       <motion.div
         className="mt-10 flex max-w-sm flex-col gap-4"
         initial={{ x: -20, opacity: 0 }}
@@ -96,31 +99,26 @@ const Dashboard = () => {
         ].map((opt) => (
           <label
             key={opt.key}
-            className="
-              flex cursor-pointer items-center gap-4 rounded-lg border
-              border-zinc-700 px-4 py-3 transition-all
-              hover:border-fuchsia-500 hover:bg-zinc-900
-            "
+            className="flex cursor-pointer items-center gap-4 rounded-lg border
+                       border-zinc-700 px-4 py-3 transition-all
+                       hover:border-fuchsia-500 hover:bg-zinc-900"
           >
-            {/* Native radio */}
             <input
               type="radio"
               name="action"
               className="hidden"
-              checked={selectedOption === opt.key} 
+              checked={selectedOption === opt.key}
               onChange={() => handleSelect(opt.key)}
             />
 
-            {/* Dot */}
             <span className="flex h-4 w-4 items-center justify-center rounded-full border border-zinc-500">
-              <span 
+              <span
                 className={`h-2 w-2 rounded-full bg-cyan-400 transition-opacity ${
                   selectedOption === opt.key ? "opacity-100" : "opacity-0"
-                }`} 
+                }`}
               />
             </span>
 
-            {/* Text */}
             <span className="font-mono tracking-wide text-gray-300">
               {opt.label}
             </span>
@@ -130,61 +128,10 @@ const Dashboard = () => {
 
       {/* RESULTS */}
       {results.length > 0 && (
-        <motion.div
-          className="mt-14"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.12 },
-            },
-          }}
-        >
+        <motion.div className="mt-14">
           <h2 className="mb-6 font-mono text-lg tracking-widest text-cyan-400">
             ACCESS GRANTED
           </h2>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {results.map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{ scale: 1.04 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="relative overflow-hidden rounded-xl
-                           border border-cyan-400/60 bg-zinc-950 p-5
-                           shadow-[0_0_25px_#00ffe1]"
-              >
-                <div className="pointer-events-none absolute inset-0 
-                                bg-gradient-to-br from-cyan-400/10 to-fuchsia-500/10" />
-
-                <p className="relative z-10 text-xs tracking-widest text-fuchsia-400 uppercase">
-                  {item.Platform}
-                </p>
-
-                <p className="relative z-10 mt-3 break-all text-sm text-gray-300">
-                  {item.Email}
-                </p>
-
-                <p className="relative z-10 mt-4 font-mono text-cyan-300">
-                  {item.Password}
-                </p>
-
-                <p className="relative z-10 mt-4 font-mono text-cyan-300">
-                  {item.Notes}
-                </p>
-
-                <div className="relative z-10 mt-5 flex items-center justify-between text-xs text-gray-500">
-                  <span>{item.Category}</span>
-                  <span className="tracking-widest text-cyan-400">SECURED</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       )}
 
@@ -198,6 +145,18 @@ const Dashboard = () => {
       )}
 
       {modal.insertModal && <InsertModal onClose={handleClose} />}
+
+      <motion.button
+        onClick={handleUpdate}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="mt-12 rounded-xl border border-cyan-400/60 
+                   bg-zinc-950 px-6 py-3 font-mono tracking-widest
+                   text-cyan-400 shadow-[0_0_25px_#00ffe1]
+                   transition-all hover:bg-cyan-400 hover:text-black"
+      >
+        UPDATE ITEM
+      </motion.button>
     </motion.div>
   );
 };
